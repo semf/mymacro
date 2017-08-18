@@ -125,7 +125,7 @@ loop{
 }
 
 ;2제대클릭2
-err := SearchAndClick(670, 275, 3, 94, 42, 155, 83, 80, "field.png", 452, 239, 522, 286, "2pclicked2.png")
+err := SearchAndClick(670, 275, 3, 94, 42, 155, 83, 80, "field.png", 583, 213, 659, 278, "2pclicked2.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -236,13 +236,20 @@ loop{
 			break
 		}
 	}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+		nClick(285,263,30)
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
-		sleep(600)
+		sleep(1000)
 		nClick(474,361,4)
+	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1){
+		sleep(400)
+		nClick(148,92,3)
+		sleep2(1300)
+		nClick(46,58,4)
+	}else{
+		nClick(736, 479, 6)
 	}
-	nClick(736, 479, 6)
-	sleep(700)
-	if(battelcount>30){
+	sleep(1300)
+	if(battelcount>20){
 		MsgBox ERROR!!
 	}
 	battlecount := battlecount+1
@@ -311,11 +318,13 @@ loop{
 			break
 		}
 	}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+		nClick(285,263,30)
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
-		sleep(600)
+		sleep(1000)
 		nClick(474,361,4)
+	}else{
+		nClick(57, 69, 4)
 	}
-	nClick(57, 69, 4)
 	sleep(1800)
 }
 	
@@ -326,8 +335,8 @@ gerji := gerji+1
 
 return
 
-^!z::ExitApp
-^!x::Pause
+z::ExitApp
+x::Pause
 
 /*
 search func
