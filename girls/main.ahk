@@ -59,8 +59,8 @@ if(err=0) {
 }
 sleep2(1000)
 
-;15번마다 쾌속 수복
-if(Mod(gerji,15)=14){
+;10번마다 쾌속 수복
+if(Mod(gerji,10)=9){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -93,7 +93,7 @@ if(err=0) {
 }
 sleep2(1400)
 ;보급클릭
-err := SearchAndClick(743, 390, 8, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
+err := SearchAndClick(743, 390, 6, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -108,7 +108,7 @@ sleep2(400)
 
 ;제대 이동 전투끝나기 기다림
 nClick(668,256,3)
-sleep2(18000)
+sleep2(20000)
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -132,7 +132,7 @@ if(err=0) {
 sleep2(400)
 ;제대 이동 전투끝나기 기다림
 nClick(706,177,2)
-sleep2(18000)
+sleep2(19000)
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -156,16 +156,19 @@ loop{
 	Random,numy1,1,5
 	Random,numy2,1,5
 	
-	nDrag(200+50*numx1,100+18*numy1,215+50*numx2,355+18*numy2,10)
+	nDrag(200+50*numx1,130+18*numy1,215+50*numx2,355+18*numy2,10)
 	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1) {
 		break
 	}
-	if(count>4){
+	if(count>5){
 		MsgBox ERROR!!
 	}
 	count++
-	sleep(800)
+	sleep(1000)
 }
+
+;랜덤쉬는시간
+ransleep(2000)
 
 ;2제대클릭3
 err := SearchAndClick(702, 416, 4, 94, 42, 155, 83, 80, "field.png", 561, 380, 650, 423, "2pclicked3.png")
@@ -175,7 +178,7 @@ if(err=0) {
 sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(648,314,3)
-sleep(17000)
+sleep(18000)
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -205,7 +208,7 @@ if(ran=19){
 	sleep2(50000)
 }else if(ran>1 and ran<18){
 	LV_Insert(1,,"14~28초 대기중")
-	sleep2(18000)
+	sleep2(19000)
 }else{
 	LV_Insert(1,,"30~60초 대기중")
 	sleep2(26000)
@@ -313,7 +316,7 @@ nClick(57, 69, 8)
 sleep(3000)
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-		ransleep(2500)
+		sleep(2300)
 		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 			break
 		}
@@ -335,8 +338,8 @@ gerji := gerji+1
 
 return
 
-z::ExitApp
-x::Pause
+^!z::ExitApp
+^!x::Pause
 
 /*
 search func
@@ -390,15 +393,15 @@ nDrag(x1,y1,x2,y2,range)
 }
 
 sleep(delay:=1000){
-	Random,ran,1.0,2.9
-	multiple:=0.8
+	Random,ran,0.8,3.2
+	multiple:=0.7
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,0.9,1.6
-	multiple:=1
+	multiple:=0.9
 	sleep, delay*ran*multiple
 	return
 }
