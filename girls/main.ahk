@@ -199,16 +199,16 @@ if(err=0) {
 sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(658,176,4)
-Random,ran,1,13
-if(ran=1){
+Random,ran,1,20
+if(ran=19){
 	LV_Insert(1,,"70~150초 대기중")
-	sleep2(70000)
-}else if(ran>1 and ran<12){
+	sleep2(50000)
+}else if(ran>1 and ran<18){
 	LV_Insert(1,,"14~28초 대기중")
 	sleep2(18000)
 }else{
 	LV_Insert(1,,"30~60초 대기중")
-	sleep2(30000)
+	sleep2(26000)
 }
 battlecount := 0
 loop{
@@ -271,15 +271,15 @@ sleep(1500)
 
 ;교체 캐릭터 선택
 if(nSearch(121, 248, 148, 279, 80, "leader1.png")=1){
-	x:=280
-	y:=199
+	x:=628
+	y:=374
 	x2:=171
 	y2:=193
 }else{
 	x:=171
 	y:=193
-	x2:=280
-	y2:=199
+	x2:=628
+	y2:=374
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
@@ -313,7 +313,7 @@ nClick(57, 69, 8)
 sleep(3000)
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-		ransleep(3000)
+		ransleep(2500)
 		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 			break
 		}
