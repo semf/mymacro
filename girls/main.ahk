@@ -11,6 +11,7 @@ gui, show,,Macro
 
 main:
 
+
 gerji:=0
 Loop   ;메인 루프
 {
@@ -273,16 +274,16 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(121, 248, 148, 279, 80, "leader1.png")=1){
-	x:=628
+if(nSearch(550, 220, 624, 297, 80, "leader1.png")=1){
+	x:=288
 	y:=374
-	x2:=171
-	y2:=193
+	x2:=625
+	y2:=192
 }else{
-	x:=171
-	y:=193
-	x2:=628
+	x2:=288
 	y2:=374
+	x:=625
+	y:=192
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
