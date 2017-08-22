@@ -11,6 +11,7 @@ gui, show,,Macro
 
 main:
 
+nSearch(82, 405, 190, 495, 80, "leader1_2.png",20)
 
 gerji:=0
 Loop   ;메인 루프
@@ -60,8 +61,8 @@ if(err=0) {
 }
 sleep2(1000)
 
-;10번마다 쾌속 수복
-if(Mod(gerji,10)=9){
+;쾌속 수복
+if(Mod(gerji,15)=14){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -84,17 +85,17 @@ if(err=0) {
 sleep(1400)
 ;작전시작
 nClick(712,472,8)
-sleep2(3000)
+sleep2(3300)
 ;지휘부클릭
 nClick(135,279,3)
-sleep2(1000)
+sleep2(1200)
 err := SearchAndClick(137, 277, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1400)
+sleep2(1600)
 ;보급클릭
-err := SearchAndClick(743, 390, 6, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
+err := SearchAndClick(743, 390, 4, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -109,7 +110,7 @@ sleep2(400)
 
 ;제대 이동 전투끝나기 기다림
 nClick(668,256,3)
-sleep2(20000)
+sleep2(19000)
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -157,8 +158,8 @@ loop{
 	Random,numy1,1,5
 	Random,numy2,1,5
 	
-	nDrag(200+50*numx1,130+18*numy1,215+50*numx2,355+18*numy2,10)
-	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1) {
+	nDrag(200+50*numx1,160+18*numy1,215+50*numx2,355+18*numy2,10)
+	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1 and count>1) {
 		break
 	}
 	if(count>5){
@@ -168,8 +169,7 @@ loop{
 	sleep(1000)
 }
 
-;랜덤쉬는시간
-ransleep(2000)
+
 
 ;2제대클릭3
 err := SearchAndClick(702, 416, 4, 94, 42, 155, 83, 80, "field.png", 561, 380, 650, 423, "2pclicked3.png")
@@ -179,7 +179,21 @@ if(err=0) {
 sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(648,314,3)
-sleep(18000)
+sleep(19000)
+/*
+Random,ran,1,20
+if(ran=19){
+	LV_Insert(1,,"70~150초 대기중")
+	sleep2(50000)
+}else if(ran>1 and ran<18){
+	LV_Insert(1,,"14~28초 대기중")
+	sleep2(19000)
+}else{
+	LV_Insert(1,,"30~60초 대기중")
+	sleep2(26000)
+}
+*/
+
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -203,17 +217,7 @@ if(err=0) {
 sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(658,176,4)
-Random,ran,1,20
-if(ran=19){
-	LV_Insert(1,,"70~150초 대기중")
-	sleep2(50000)
-}else if(ran>1 and ran<18){
-	LV_Insert(1,,"14~28초 대기중")
-	sleep2(19000)
-}else{
-	LV_Insert(1,,"30~60초 대기중")
-	sleep2(26000)
-}
+sleep(18000)
 battlecount := 0
 loop{
 	find:=nSearch(94, 42, 155, 83, 80, "field.png")
@@ -274,16 +278,16 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(550, 220, 624, 297, 80, "leader1.png")=1){
-	x:=288
-	y:=374
-	x2:=625
-	y2:=192
-}else{
-	x2:=288
+if(nSearch(82, 405, 190, 495, 80, "leader1.png",5)=1 or nSearch(82, 405, 190, 495, 80, "leader1_2.png",5)=1){
+	x:=394
+	y:=380
+	x2:=176
 	y2:=374
-	x:=625
-	y:=192
+}else{
+	x:=176
+	y:=374
+	x2:=394
+	y2:=380
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
@@ -341,6 +345,7 @@ return
 
 ^!z::ExitApp
 ^!x::Pause
+MButton::pause
 
 /*
 search func
@@ -373,12 +378,12 @@ nDrag(x1,y1,x2,y2,range)
 	Random,rY,-3*range,3*range
 	x2:=x2+rX
 	y2:=y2+rY
-	Random,num,15,25
+	Random,num,15,22
 	Random,num2,28,34
 	IParam := x1|y1<<16
 	WinGet, ActiveID, ID, dstn
 	PostMessage, 0x201, 1, %IParam%, , ahk_id %ActiveID%
-	sleep(200)
+	sleep(50)
 	gapx:=(x2-x1)/num2
 	gapy:=(y2-y1)/num2
 	loop,31
@@ -395,7 +400,7 @@ nDrag(x1,y1,x2,y2,range)
 
 sleep(delay:=1000){
 	Random,ran,0.8,3.2
-	multiple:=0.7
+	multiple:=0.9
 	sleep, delay*ran*multiple
 	return
 }
