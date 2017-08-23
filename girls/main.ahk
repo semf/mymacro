@@ -149,14 +149,15 @@ loop{
 }
 
 ;맨위로 드레그
-count :=1
+count:=1
 loop{
 	Random,numx1,1,5
 	Random,numx2,1,5
 	Random,numy1,1,5
 	Random,numy2,1,5
 	
-	nDrag(200+50*numx1,160+18*numy1,215+50*numx2,355+18*numy2,10)
+	nDrag(200+50*numx1,120+18*numy1,215+50*numx2,355+18*numy2,10)
+	sleep(1000)
 	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1 and count>1) {
 		break
 	}
@@ -164,7 +165,6 @@ loop{
 		MsgBox ERROR!!
 	}
 	count++
-	sleep(1000)
 }
 
 
@@ -386,7 +386,7 @@ nDrag(x1,y1,x2,y2,range)
 	gapy:=(y2-y1)/num2
 	loop,31
 	{
-		sleep(num)
+		sleep(num/1.4)
 		y1:=y1+gapy
 		x1:=x1+gapx
 		IParam := Ceil(x1)|Ceil(y1)<<16

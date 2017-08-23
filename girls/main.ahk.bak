@@ -11,8 +11,6 @@ gui, show,,Macro
 
 main:
 
-nSearch(82, 405, 190, 495, 80, "leader1_2.png",20)
-
 gerji:=0
 Loop   ;메인 루프
 {
@@ -151,22 +149,21 @@ loop{
 }
 
 ;맨위로 드레그
-count :=1
 loop{
 	Random,numx1,1,5
 	Random,numx2,1,5
 	Random,numy1,1,5
 	Random,numy2,1,5
 	
-	nDrag(200+50*numx1,160+18*numy1,215+50*numx2,355+18*numy2,10)
+	nDrag(200+50*numx1,120+18*numy1,215+50*numx2,355+18*numy2,10)
+	sleep(1000)
 	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1 and count>1) {
 		break
 	}
+	MsgBox %Count%
 	if(count>5){
 		MsgBox ERROR!!
 	}
-	count++
-	sleep(1000)
 }
 
 
@@ -278,13 +275,13 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(82, 405, 190, 495, 80, "leader1.png",5)=1 or nSearch(82, 405, 190, 495, 80, "leader1_2.png",5)=1){
+if(nSearch(5, 405, 100, 495, 80, "leader1.png",5)=1 or nSearch(5, 405, 100, 495, 80, "leader1_2.png",5)=1){
 	x:=394
 	y:=380
-	x2:=176
+	x2:=60
 	y2:=374
 }else{
-	x:=176
+	x:=60
 	y:=374
 	x2:=394
 	y2:=380
@@ -388,7 +385,7 @@ nDrag(x1,y1,x2,y2,range)
 	gapy:=(y2-y1)/num2
 	loop,31
 	{
-		sleep(num)
+		sleep(num/1.4)
 		y1:=y1+gapy
 		x1:=x1+gapx
 		IParam := Ceil(x1)|Ceil(y1)<<16
