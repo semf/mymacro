@@ -153,13 +153,13 @@ loop{
 		;매인화면에서 대기하기
 		Random,ran,1,50
 		if(ran=47){
-			LV_Insert(1,,"70~150초 대기중")
+			;(1,,"70~150초 대기중")
 			sleep2(70000)
 		}else if(ran>1 and ran<46){
-			LV_Insert(1,,"14~28초 대기중")
+			;(1,,"14~28초 대기중")
 			sleep2(1500)
 		}else{
-			LV_Insert(1,,"30~60초 대기중")
+			;(1,,"30~60초 대기중")
 			sleep2(26000)
 		}
 		LV_Insert(1,,padrun "회차 대기중입니다.")
@@ -250,14 +250,14 @@ nDrag(x1,y1,x2,y2,range)
 
 sleep(delay:=1000){
 	Random,ran,1.1,2.2
-	multiple:=0.7
+	multiple:=0.9
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,1.1,1.6
-	multiple:=0.9
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
@@ -265,12 +265,12 @@ sleep2(delay:=1000){
 ransleep(delay){
 	Random,ran,1,30
 	if(ran=1){
-		LV_Insert(1,,"120~240초 대기중")
+		;(1,,"120~240초 대기중")
 		sleep(delay*60)
 	}else if(ran>1 and ran<25){
 		sleep(delay)
 	}else {
-		LV_Insert(1,,"약30초 대기중")
+		;(1,,"약30초 대기중")
 		sleep(delay*11)
 	}
 }
@@ -284,11 +284,11 @@ nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 	loop, %count%{
 		ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
 		if(ErrorLevel=2){
-			LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+			;(1,,img "파일을 찾을 수 없습니다.")
 		}else if(Errorlevel=1){
-			LV_Insert(1,,"현재 화면에" img "이(가) 없습니다.")
+			;(1,,"현재 화면에" img "이(가) 없습니다.")
 		}else{
-			LV_Insert(1,,img "을(를) 찾았습니다.")
+			;(1,,img "을(를) 찾았습니다.")
 			return 1
 		}
 		if(count>1){
@@ -306,19 +306,19 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 		if(Mod(stage,2)=1){
 			ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
 			if(ErrorLevel=2){
-				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+				;(1,,img "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
 				if(count>5){
-					LV_Insert(1,,img "가 없습니다. ")
+					;(1,,img "가 없습니다. ")
 					count:=1
 					stage:=stage+1
 				}else{
-					LV_Insert(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
+					;(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
 					sleep(700)
 					count := count+1
 				}
 			}else{
-				LV_Insert(1,,img "을(를) 찾았습니다.")
+				;(1,,img "을(를) 찾았습니다.")
 				count := 1
 				nClick(xClick, yClick, range)
 				stage:=stage+1
@@ -326,24 +326,24 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 		}else if(Mod(stage,2)=0){
 			ImageSearch, , ,x21,y21,x22,y22, *TransBlack *%dp% %A_ScriptDir%\image\%img2%
 			if(ErrorLevel=2){
-				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
+				;(1,,img2 "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
 				if(count>5){
-					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
+					;(1,,img2 "가 없습니다. 재시도 합니다.")
 					count:=1
 					stage:=stage+1
 				}else{
-					LV_Insert(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
+					;(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
 					sleep(700)
 					count := count+1
 				}
 			}else{
-				LV_Insert(1,,img2 "을(를) 찾았습니다. click 성공")
+				;(1,,img2 "을(를) 찾았습니다. click 성공")
 				return 1
 			}
 		}
 		if(stage>10){
-			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
+			;(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
 			return 0
 		}
 		sleep2(400)

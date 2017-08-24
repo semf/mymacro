@@ -13,7 +13,6 @@ main:
 padrun:=1
 Loop   ;메인 루프
 {
-
 ;메인화면에서 전투화면으로
 err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
 if(err=0) {
@@ -100,8 +99,11 @@ if(err=0) {
 }
 sleep2(1600)
 ;작전시작
-nClick(712,472,8)
-sleep2(3900)
+err := SearchAndClick(712,472,8, 94, 42, 155, 83, 80, "field.png", 713, 452, 781, 499, "turnend.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
+sleep2(3000)
 
 ;헬리포트클릭
 err := SearchAndClick(694, 132, 3, 94, 42, 155, 83, 80, "field.png", 609, 106, 658, 141, "balpclicked.png")
@@ -148,7 +150,18 @@ battleend()
 battlecount:=0
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-		sleep(2000)
+		;매인화면에서 대기하기
+		Random,ran,1,50
+		if(ran=47){
+			LV_Insert(1,,"70~150초 대기중")
+			sleep2(70000)
+		}else if(ran>1 and ran<46){
+			LV_Insert(1,,"14~28초 대기중")
+			sleep2(1500)
+		}else{
+			LV_Insert(1,,"30~60초 대기중")
+			sleep2(26000)
+		}
 		LV_Insert(1,,padrun "회차 대기중입니다.")
 		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 			break
@@ -157,7 +170,6 @@ loop{
 		nClick(285,263,30)
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
 		sleep(1000)
-		MsgBox clean bullet
 		nClick(474,361,4)
 	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1){
 		sleep(400)
@@ -175,6 +187,7 @@ loop{
 }
 
 padrun+=1
+
 
 }
 
