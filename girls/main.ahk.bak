@@ -149,6 +149,7 @@ loop{
 }
 
 ;맨위로 드레그
+count:=1
 loop{
 	Random,numx1,1,5
 	Random,numx2,1,5
@@ -160,10 +161,10 @@ loop{
 	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1 and count>1) {
 		break
 	}
-	MsgBox %Count%
 	if(count>5){
 		MsgBox ERROR!!
 	}
+	count++
 }
 
 
