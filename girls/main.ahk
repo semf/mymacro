@@ -10,6 +10,7 @@ gui, add, button,y+5,start
 gui, show,,Macro
 
 main:
+	
 
 gerji:=0
 Loop   ;메인 루프
@@ -60,7 +61,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,20)=16){
+if(Mod(gerji,6)=5){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -177,8 +178,12 @@ if(err=0) {
 sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(648,314,3)
+<<<<<<< HEAD
 sleep(19000)
 /*
+=======
+
+>>>>>>> 264a32054178e66fbb806038664fe436a76dffd1
 Random,ran,1,20
 if(ran=19){
 	LV_Insert(1,,"70~150초 대기중")
@@ -276,16 +281,16 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(439, 400, 505,484, 80, "leader1.png",5)=1 or nSearch(439, 400, 505,484, 80, "leader1_2.png",5)=1){
-	x:=286
-	y:=380
-	x2:=507
-	y2:=387
-}else{
-	x:=507
-	y:=387
+if(nSearch(211, 414, 281,496, 80, "leader1.png",5)=1 or nSearch(211, 414, 281,496, 80, "leader1_2.png",5)=1){
 	x2:=286
 	y2:=380
+	x:=397
+	y:=387
+}else{
+	x2:=397
+	y2:=387
+	x:=286
+	y:=380
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
