@@ -178,7 +178,7 @@ sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(648,314,3)
 sleep(19000)
-
+/*
 Random,ran,1,20
 if(ran=19){
 	LV_Insert(1,,"70~150초 대기중")
@@ -190,7 +190,7 @@ if(ran=19){
 	LV_Insert(1,,"30~60초 대기중")
 	sleep2(26000)
 }
-
+*/
 
 battlecount := 0
 loop{
@@ -246,7 +246,7 @@ loop{
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
 		sleep(1000)
 		nClick(474,361,4)
-	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1){
+	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1 or nSearch(107,60, 209, 123, 80, "friend2.png")=1){
 		sleep(400)
 		nClick(148,92,3)
 		sleep2(1300)

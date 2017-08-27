@@ -250,14 +250,14 @@ nDrag(x1,y1,x2,y2,range)
 
 sleep(delay:=1000){
 	Random,ran,1.1,2.2
-	multiple:=0.9
+	multiple:=1.1
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,1.1,1.6
-	multiple:=1.0
+	multiple:=1.2
 	sleep, delay*ran*multiple
 	return
 }
