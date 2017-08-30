@@ -167,7 +167,7 @@ sleep(900)
 nClick(329,194,3)
 
 battleend_to_main()
-sleep2(1500)
+
 
 ;턴종료
 nClick(739,477,4)
@@ -183,7 +183,7 @@ sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(507,190,4)
 battleend_to_main()
-sleep2(800)
+
 
 ;2제대클릭6
 err := SearchAndClick(508, 194, 3, 94, 42, 155, 83, 80, "field.png", 139, 150, 212, 215, "02clicked6.png")
@@ -195,7 +195,7 @@ sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(626,218,5)
 battleend_to_main()
-sleep2(1500)
+
 
 ;턴종료
 nClick(736, 479, 6)
