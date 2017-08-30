@@ -36,9 +36,20 @@ if(err=0) {
 sleep(500)
 
 ;작전배치->전장설명  or 캐릭터 꽉찬경우
-err := SearchAndClick(471, 417, 4, 419, 392, 511, 431, 80, "normal.png", 94, 42, 155, 83, "field.png")
-if(err=0) {
-	MsgBox ERROR!!
+loop{
+	if(nSearch(419, 392, 511, 431, 80, "normal.png")=1){
+		nclick(471,417,4)
+	}else if(nSearch(94, 42, 155, 83, 80, "field.png")=1){
+		break
+	}else if(nSearch(335, 341, 460, 405, 80, "full.png")=1){
+		sleep(1000)
+		MsgBox Full!!
+		break
+	}
+	sleep(1800)
+	if(A_Index>10){
+		MsgBox ERROR!!
+	}
 }
 sleep(1000)
 ;작전배치->1제대배치
@@ -61,7 +72,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,10)=8){
+if(Mod(gerji,15)=8){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -279,7 +290,7 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(211, 414, 281,496, 80, "leader1.png",5)=1 or nSearch(211, 414, 281,496, 80, "leader1_2.png",5)=1){
+if(nSearch(206, 387, 317, 483, 80, "leader1.png",5)=1 or nSearch(206, 387, 317, 483, 80, "leader1_2.png",5)=1){
 	x2:=286
 	y2:=380
 	x:=397
@@ -400,15 +411,15 @@ nDrag(x1,y1,x2,y2,range)
 }
 
 sleep(delay:=1000){
-	Random,ran,0.8,3.2
-	multiple:=0.9
+	Random,ran,0.9,3.2
+	multiple:=0.8
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,0.9,1.6
-	multiple:=0.9
+	multiple:=0.8
 	sleep, delay*ran*multiple
 	return
 }

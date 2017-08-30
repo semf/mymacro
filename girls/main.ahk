@@ -72,7 +72,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,10)=8){
+if(Mod(gerji,15)=8){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -290,18 +290,18 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(211, 414, 281,496, 80, "leader1.png",5)=1 or nSearch(211, 414, 281,496, 80, "leader1_2.png",5)=1){
-	x2:=286
+if(nSearch(316, 389, 409, 491, 80, "leader1.png",5)=1 or nSearch(316, 389, 409, 491, 80, "leader1_2.png",5)=1){
+	x2:=396
 	y2:=380
-	x:=397
-	y:=387
+	x:=283
+	y:=492
 }else{
-	x2:=397
-	y2:=387
-	x:=286
+	x2:=283
+	y2:=492
+	x:=396
 	y:=380
 }
-err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -322,7 +322,7 @@ if(err=0) {
 sleep(1300)
 
 ;교체 기사 캐릭터 선택
-err := SearchAndClick(x2, y2, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+err := SearchAndClick(x2, y2, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -411,15 +411,15 @@ nDrag(x1,y1,x2,y2,range)
 }
 
 sleep(delay:=1000){
-	Random,ran,0.8,3.2
-	multiple:=0.9
+	Random,ran,0.9,3.2
+	multiple:=0.8
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,0.9,1.6
-	multiple:=0.9
+	multiple:=0.8
 	sleep, delay*ran*multiple
 	return
 }

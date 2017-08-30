@@ -45,11 +45,7 @@ loop{
 		MsgBox ERROR!!
 	}
 }
-sleep(1000)
-err := SearchAndClick(471, 417, 4, 419, 392, 511, 431, 80, "normal.png", 94, 42, 155, 83, "field.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
+
 sleep(1000)
 ;작전배치->1제대배치
 err := SearchAndClick(169, 274, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
