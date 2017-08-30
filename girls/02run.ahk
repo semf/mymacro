@@ -30,6 +30,22 @@ if(err=0) {
 sleep(500)
 
 ;작전배치->전장설명  or 캐릭터 꽉찬경우
+loop{
+	if(nSearch(419, 392, 511, 431, 80, "normal.png")=1){
+		nclick(471,417,4)
+	}else if(nSearch(94, 42, 155, 83, 80, "field.png")=1){
+		break
+	}else if(nSearch(335, 341, 460, 405, 80, "full.png")=1){
+		sleep(1000)
+		MsgBox Full!!
+		break
+	}
+	sleep(1800)
+	if(A_Index>10){
+		MsgBox ERROR!!
+	}
+}
+sleep(1000)
 err := SearchAndClick(471, 417, 4, 419, 392, 511, 431, 80, "normal.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
