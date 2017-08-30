@@ -310,15 +310,15 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(315, 210, 409,303, 80, "leader1.png",5)=1 or nSearch(315, 210, 409,303, 80, "leader1_2.png",5)=1){
-	x2:=397
+if(nSearch(426, 210, 537,303, 80, "leader1.png",5)=1 or nSearch(426, 210, 537,303, 80, "leader1_2.png",5)=1){
+	x2:=504
 	y2:=184
-	x:=398
-	y:=387
+	x:=288
+	y:=184
 }else{
-	x2:=397
-	y2:=387
-	x:=397
+	x2:=288
+	y2:=184
+	x:=504
 	y:=184
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")

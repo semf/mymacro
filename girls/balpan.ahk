@@ -380,7 +380,8 @@ questionpad(){
 					count:=1
 					loop{
 						if(nSearch(388,30, 423, 61, 80, "ingamestop.png")=1){
-							err := SearchAndClick(400, 45, 2, 388,30, 423, 61, 80, "ingamestop.png", 388,30, 423, 61, "ingameplay.png")
+							sleep(100)
+							err := SearchAndClick(405, 42, 2, 388,30, 423, 61, 80, "ingamestop.png", 388,30, 423, 61, "ingameplay.png")
 							if(err=0) {
 								MsgBox ERROR!!
 							}
