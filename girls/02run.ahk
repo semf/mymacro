@@ -115,21 +115,7 @@ sleep2(400)
 
 ;제대 이동 전투끝나기 기다림
 nClick(310,213,3)
-sleep2(23000)
-battlecount := 0
-loop{
-	find:=nSearch(94, 42, 155, 83, 80, "field.png")
-	if(find=1){
-		sleep(800)
-		break
-	}
-	nClick(360,264,20)
-	sleep(1000)
-	if(battelcount>30){
-		MsgBox ERROR!!
-	}
-	battlecount := battlecount+1
-}
+battleend_to_main()
 
 ;2제대클릭2
 err := SearchAndClick(313, 215, 3, 94, 42, 155, 83, 80, "field.png", 566, 175, 655, 233, "02clicked2.png")
@@ -139,21 +125,7 @@ if(err=0) {
 sleep2(400)
 ;제대 이동 전투끝나기 기다림
 nClick(339,90,2)
-sleep2(23000)
-battlecount := 0
-loop{
-	find:=nSearch(94, 42, 155, 83, 80, "field.png")
-	if(find=1){
-		sleep(600)
-		break
-	}
-	nClick(360,264,30)
-	sleep(1000)
-	if(battelcount>30){
-		MsgBox ERROR!!
-	}
-	battlecount := battlecount+1
-}
+battleend_to_main()
 
 ;맨위로 드레그
 count:=1
@@ -194,33 +166,8 @@ sleep(900)
 ;제대이동 
 nClick(329,194,3)
 
-Random,ran,1,20
-if(ran=19){
-	LV_Insert(1,,"70~150초 대기중")
-	sleep2(50000)
-}else if(ran>1 and ran<18){
-	LV_Insert(1,,"14~28초 대기중")
-	sleep2(19000)
-}else{
-	LV_Insert(1,,"30~60초 대기중")
-	sleep2(26000)
-}
-
-
-battlecount := 0
-loop{
-	find:=nSearch(94, 42, 155, 83, 80, "field.png")
-	if(find=1){
-		sleep(600)
-		break
-	}
-	nClick(360,264,30)
-	sleep(900)
-	if(battelcount>30){
-		MsgBox ERROR!!
-	}
-	battlecount := battlecount+1
-}
+battleend_to_main()
+sleep2(1500)
 
 ;턴종료
 nClick(739,477,4)
@@ -235,21 +182,8 @@ sleep(300)
 
 ;제대 이동 전투끝나기 기다림
 nClick(507,190,4)
-sleep(20000)
-battlecount := 0
-loop{
-	find:=nSearch(94, 42, 155, 83, 80, "field.png")
-	if(find=1){
-		sleep(600)
-		break
-	}
-	nClick(360,264,20)
-	sleep2(800)
-	if(battelcount>30){
-		MsgBox ERROR!!
-	}
-	battlecount := battlecount+1
-}
+battleend_to_main()
+sleep2(800)
 
 ;2제대클릭6
 err := SearchAndClick(508, 194, 3, 94, 42, 155, 83, 80, "field.png", 139, 150, 212, 215, "02clicked6.png")
@@ -260,22 +194,8 @@ sleep(300)
 
 ;제대 이동 전투끝나기 기다림
 nClick(626,218,5)
-sleep(18000)
-battlecount := 0
-loop{
-	find:=nSearch(94, 42, 155, 83, 80, "field.png")
-	if(find=1){
-		sleep(600)
-		break
-	}
-	nClick(360,264,20)
-	sleep2(800)
-	if(battelcount>30){
-		MsgBox ERROR!!
-	}
-	battlecount := battlecount+1
-}
-
+battleend_to_main()
+sleep2(1500)
 
 ;턴종료
 nClick(736, 479, 6)
@@ -593,5 +513,35 @@ SearchAndClickAndSplit(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", 
 			return 0
 		}
 		sleep2(400)
+	}
+}
+
+battleend_to_main(){
+	battleend:=0
+	loop{
+		if(battleend=1 and nSearch(94, 42, 155, 83, 80, "field.png")=1){
+			sleep(600)
+			return
+		}else if(battleend=0 and nSearch(598, 320, 673, 370, 60, "srank.png")=1){
+			Random,ran,1,40
+			if(ran=36){
+				LV_Insert(1,,"전투 끝 1분대기")
+				sleep(40000)
+			}else if(ran>1 and ran<35){
+				LV_Insert(1,,"전투끝 1초대기")
+				sleep(800)
+			}else{
+				LV_Insert(1,,"전투 끝 10초 대기")
+				sleep2(9000)
+			}
+			battleend:=1
+		}
+		if(battleend=1){
+			nClick(360,264,30)
+		}
+		sleep(900)
+		if(A_Index>50){
+			MsgBox ERROR!!
+		}
 	}
 }
