@@ -220,14 +220,14 @@ sleep(1500)
 ;교체 캐릭터 선택
 if(nSearch(204, 206, 291, 294, 80, "leader1.png",5)=1 or nSearch(204, 206, 291, 294, 80, "leader1_2.png",5)=1){
 	x2:=283
-	y2:=196
-	x:=283
+	y2:=186
+	x:=186
 	y:=492
 }else{
-	x2:=283
+	x2:=186
 	y2:=492
 	x:=284
-	y:=296
+	y:=186
 }
 err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
