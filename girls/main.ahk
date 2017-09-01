@@ -43,6 +43,7 @@ loop{
 		break
 	}else if(nSearch(335, 341, 460, 405, 80, "full.png")=1){
 		sleep(1000)
+		
 		MsgBox Full!!
 		break
 	}
@@ -72,7 +73,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,15)=8){
+if(Mod(gerji,12)=8){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -340,14 +341,14 @@ nDrag(x1,y1,x2,y2,range)
 
 sleep(delay:=1000){
 	Random,ran,0.9,3.2
-	multiple:=0.8
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,0.9,1.6
-	multiple:=0.8
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
@@ -505,7 +506,7 @@ battleend_to_main(){
 				sleep(40000)
 			}else if(ran>1 and ran<35){
 				LV_Insert(1,,"전투끝 1초대기")
-				sleep(800)
+				sleep(1000)
 			}else{
 				LV_Insert(1,,"전투 끝 10초 대기")
 				sleep2(9000)

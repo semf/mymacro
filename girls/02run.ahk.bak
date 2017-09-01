@@ -167,7 +167,7 @@ sleep(900)
 nClick(329,194,3)
 
 battleend_to_main()
-sleep2(1500)
+
 
 ;턴종료
 nClick(739,477,4)
@@ -183,7 +183,7 @@ sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(507,190,4)
 battleend_to_main()
-sleep2(800)
+
 
 ;2제대클릭6
 err := SearchAndClick(508, 194, 3, 94, 42, 155, 83, 80, "field.png", 139, 150, 212, 215, "02clicked6.png")
@@ -195,7 +195,7 @@ sleep(300)
 ;제대 이동 전투끝나기 기다림
 nClick(626,218,5)
 battleend_to_main()
-sleep2(1500)
+
 
 ;턴종료
 nClick(736, 479, 6)
@@ -242,16 +242,16 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(426, 210, 537,303, 80, "leader1.png",5)=1 or nSearch(426, 210, 537,303, 80, "leader1_2.png",5)=1){
-	x2:=504
-	y2:=184
-	x:=288
-	y:=184
-}else{
-	x2:=288
-	y2:=184
+if(nSearch(0, 388, 55, 493, 80, "leader1.png",5)=1 or nSearch(0, 388, 55, 493, 80, "leader1_2.png",5)=1){
+	x2:=56
+	y2:=378
 	x:=504
-	y:=184
+	y:=186
+}else{
+	x2:=504
+	y2:=186
+	x:=56
+	y:=378
 }
 err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
