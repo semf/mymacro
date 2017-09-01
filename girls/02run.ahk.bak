@@ -217,6 +217,12 @@ loop{
 		nClick(148,92,3)
 		sleep2(1300)
 		nClick(46,58,4)
+	}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+		sleep(800)
+		nClick(172,146,3)
+		sleep(700)
+		nClick(219,266,8)
+		sleep(300)
 	}else{
 		nClick(736, 479, 6)
 	}
@@ -299,6 +305,7 @@ loop{
 		nClick(172,146,3)
 		sleep(700)
 		nClick(219,266,8)
+		sleep(300)
 	}else{
 		nClick(57, 69, 4)
 	}
