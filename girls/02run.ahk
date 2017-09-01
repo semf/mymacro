@@ -294,10 +294,16 @@ loop{
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
 		sleep(1000)
 		nClick(474,361,4)
+	}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+		sleep(800)
+		nClick(172,146,3)
+		sleep(700)
+		nClick(219,266,8)
+		sleep(300)
 	}else{
 		nClick(57, 69, 4)
 	}
-	sleep(1800)
+	sleep(1300)
 }
 	
 gerji := gerji+1
