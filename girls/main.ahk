@@ -73,7 +73,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,12)=8){
+if(Mod(gerji,40)=39){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -222,10 +222,10 @@ sleep(1500)
 if(nSearch(204, 206, 291, 294, 80, "leader1.png",5)=1 or nSearch(204, 206, 291, 294, 80, "leader1_2.png",5)=1){
 	x2:=283
 	y2:=186
-	x:=186
+	x:=288
 	y:=492
 }else{
-	x2:=186
+	x2:=288
 	y2:=492
 	x:=284
 	y:=186

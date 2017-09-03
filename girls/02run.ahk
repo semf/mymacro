@@ -52,22 +52,22 @@ err := SearchAndClick(169, 274, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 7
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1000)
+sleep2(600)
 ;배치창->1제대 배치완료
 err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1000)
+sleep2(400)
 ;작전배치->2제대배치
 err := SearchAndClick(411, 277, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1000)
+sleep2(400)
 
 ;쾌속 수복
-if(Mod(gerji,3)=2){
+if(Mod(gerji,4)=1){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -79,7 +79,7 @@ if(Mod(gerji,3)=2){
 	if(err=0) {
 		MsgBox ERROR!!
 	}
-	sleep(1000)
+	sleep(400)
 }
 
 ;배치창->2제대 배치완료
@@ -87,24 +87,24 @@ err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1400)
+sleep(400)
 ;작전시작
 nClick(712,472,8)
 sleep2(3300)
 ;텔레포트클릭
 nClick(165, 272,3)
-sleep2(1200)
+sleep2(800)
 err := SearchAndClick(165, 272, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1600)
+sleep2(800)
 ;보급클릭
 err := SearchAndClick(743, 390, 4, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1100)
+sleep(700)
 
 ;2제대클릭
 err := SearchAndClick(411, 278, 5, 94, 42, 155, 83, 80, "field.png", 567, 211, 659, 302, "02clicked.png")
@@ -136,7 +136,9 @@ loop{
 	Random,numy2,1,5
 	
 	nDrag(430+30*numx1,120+8*numy1,430+30*numx2,370+10*numy2,6)
-	sleep(1000)
+	if(count>1){
+		sleep(1000)
+	}
 	if(nSearch(430, 53, 513, 126, 80, "02fieldtop.png")=1 and count>1) {
 		break
 	}
@@ -171,7 +173,7 @@ battleend_to_main()
 
 ;턴종료
 nClick(739,477,4)
-sleep2(8000)
+sleep2(9000)
 
 ;2제대클릭5
 err := SearchAndClick(326, 198, 3, 94, 42, 155, 83, 80, "field.png", 130, 155, 215, 215, "02clicked5.png")
@@ -238,17 +240,17 @@ err := SearchAndClick(727, 344, 6, 519, 330, 640, 409, 80, "main.png", 17, 38, 8
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1000)
+sleep(700)
 
 ;1제대 케릭터 선택
 err := SearchAndClick(149, 283, 5, 17, 38, 86, 93, 80, "return2.png", 12, 42, 82, 86, "cancel.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1500)
+sleep(600)
 
 ;교체 캐릭터 선택
-if(nSearch(0, 388, 55, 493, 80, "leader1.png",5)=1 or nSearch(0, 388, 55, 493, 80, "leader1_2.png",5)=1){
+if(nSearch(0, 388, 55, 493, 80, "leader1.png",3)=1 or nSearch(0, 388, 55, 493, 80, "leader1_2.png",3)=1){
 	x2:=56
 	y2:=378
 	x:=504
@@ -263,14 +265,14 @@ err := SearchAndClick(x, y, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93,
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1300)
+sleep(300)
 
 ;편성 제대 1->2
 err := SearchAndClick(35, 181, 3, 17, 38, 86, 93, 80, "return2.png", 239, 220, 284, 267, "selectdoll.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1300)
+sleep(300)
 
 ;캐릭선택창으로
 err := SearchAndClick(266, 262, 6, 239, 220, 284, 267, 80, "selectdoll.png", 12, 42, 82, 86, "cancel.png")
@@ -284,7 +286,7 @@ err := SearchAndClick(x2, y2, 6, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 9
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1000)
+sleep(800)
 
 ;메인화면으로
 nClick(57, 69, 8)
@@ -434,7 +436,7 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>5){
+				if(count>3){
 					LV_Insert(1,,img "가 없습니다. ")
 					count:=1
 					stage:=stage+1
@@ -454,7 +456,7 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>5){
+				if(count>3){
 					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
 					count:=1
 					stage:=stage+1
@@ -472,7 +474,7 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
 			return 0
 		}
-		sleep2(400)
+		sleep2(200)
 	}
 }
 

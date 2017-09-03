@@ -73,7 +73,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,12)=8){
+if(Mod(gerji,30)=29){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -219,16 +219,16 @@ if(err=0) {
 sleep(1500)
 
 ;교체 캐릭터 선택
-if(nSearch(0, 388, 55, 493, 80, "leader1.png",5)=1 or nSearch(0, 388, 55, 493, 80, "leader1_2.png",5)=1){
-	x2:=56
-	y2:=378
-	x:=186
+if(nSearch(204, 206, 291, 294, 80, "leader1.png",5)=1 or nSearch(204, 206, 291, 294, 80, "leader1_2.png",5)=1){
+	x2:=283
+	y2:=186
+	x:=288
 	y:=492
 }else{
-	x2:=186
+	x2:=288
 	y2:=492
-	x:=56
-	y:=378
+	x:=284
+	y:=186
 }
 err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
