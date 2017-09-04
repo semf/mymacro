@@ -6,9 +6,20 @@ CoordMode, Pixel, Screen
 SetWorkingDir %A_ScriptDir%
 
 Gui, Add, ListView, r10 , log
-gui, add, button,y+5,start
 gui, show,,Macro
+Loop, read,  %A_ScriptDir%\432setting.txt
+{
+	StringSplit, arr, A_LoopReadLine, %A_Space%
+	if(A_Index=1){
+		FirstDealer:=arr2
+	}else if(A_Index=2){
+		SecondDealer:=arr2
+	}else if(A_Index=3){
+		cure:=arr2
+	}
+}
 
+changecharacter(FirstDealer,SecondDealer)
 
 main:
 
@@ -73,7 +84,7 @@ if(err=0) {
 sleep2(1000)
 
 ;쾌속 수복
-if(Mod(gerji,30)=29){
+if(Mod(gerji,cure)=cure-1){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -209,46 +220,47 @@ err := SearchAndClick(727, 344, 6, 519, 330, 640, 409, 80, "main.png", 17, 38, 8
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1000)
+sleep(400)
 
 ;1제대 케릭터 선택
 err := SearchAndClick(149, 283, 5, 17, 38, 86, 93, 80, "return2.png", 12, 42, 82, 86, "cancel.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1500)
+sleep(600)
 
 ;교체 캐릭터 선택
-if(nSearch(204, 206, 291, 294, 80, "leader1.png",5)=1 or nSearch(204, 206, 291, 294, 80, "leader1_2.png",5)=1){
-	x2:=283
-	y2:=186
-	x:=288
-	y:=492
+if(nSearch(selectposx(FirstDealer)-80, selectposy(FirstDealer), selectposx(FirstDealer), selectposy(FirstDealer)+120, 80, "leader1.png",3)=1 or nSearch(selectposx(FirstDealer)-80, selectposy(FirstDealer), selectposx(FirstDealer), selectposy(FirstDealer)+120, 80, "leader1_2.png",3)=1){
+	x:=selectposx(SecondDealer)
+	y:=selectposy(SecondDealer)
+	x2:=selectposx(FirstDealer)
+	y2:=selectposy(FirstDealer)
 }else{
-	x2:=288
-	y2:=492
-	x:=284
-	y:=186
+	x2:=selectposx(SecondDealer)
+	y2:=selectposy(SecondDealer)
+	x:=selectposx(FirstDealer)
+	y:=selectposy(FirstDealer)
+
 }
 err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1300)
+sleep(400)
 
 ;편성 제대 1->2
 err := SearchAndClick(35, 181, 3, 17, 38, 86, 93, 80, "return2.png", 239, 220, 284, 267, "selectdoll.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1300)
+sleep(400)
 
 ;캐릭선택창으로
 err := SearchAndClick(266, 262, 6, 239, 220, 284, 267, 80, "selectdoll.png", 12, 42, 82, 86, "cancel.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(1300)
+sleep(400)
 
 ;교체 기사 캐릭터 선택
 err := SearchAndClick(x2, y2, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
@@ -521,4 +533,104 @@ battleend_to_main(){
 			MsgBox ERROR!!
 		}
 	}
+}
+
+selectposx(pos){
+	return mod(pos,6)*112+56
+}
+
+selectposy(pos){
+	if(pos>0 and pos<12){
+		return Floor(pos/6)*200+187
+	}else if(pos>11 and pos<18){
+		return 498
+	}else{
+		MsgBox setting error
+	}
+}
+
+changecharacter(First,Second){
+	fx:=selectposx(First)
+	fy:=selectposy(First)
+	sx:=selectposx(Second)
+	sy:=selectposy(Second)
+	;메인에서 편성으로
+	err := SearchAndClick(727, 344, 6, 519, 330, 640, 409, 80, "main.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;1제대 케릭터 선택
+	err := SearchAndClick(149, 283, 5, 17, 38, 86, 93, 80, "return2.png", 12, 42, 82, 86, "cancel.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(600)
+
+	;교체 캐릭터 선택
+	if(nSearch(fx-80, fy, fx, fy+120, 80, "leader1.png",3)=1 or nSearch(fx-80, fy, fx, fy+120, 80, "leader1_2.png",3)=1){
+		x:=sx
+		y:=sy
+		x2:=fx
+		y2:=fy
+	}else{
+		x2:=sx
+		y2:=sy
+		x:=fx
+		y:=fy
+	}
+	err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;편성 제대 1->2
+	err := SearchAndClick(35, 181, 3, 17, 38, 86, 93, 80, "return2.png", 239, 220, 284, 267, "selectdoll.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;캐릭선택창으로
+	err := SearchAndClick(266, 262, 6, 239, 220, 284, 267, 80, "selectdoll.png", 12, 42, 82, 86, "cancel.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;교체 기사 캐릭터 선택
+	err := SearchAndClick(x2, y2, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(1000)
+
+	;메인화면으로
+	nClick(57, 69, 8)
+	sleep(3000)
+	loop{
+		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
+			sleep(2300)
+			if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
+				break
+			}
+		}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+			nClick(285,263,30)
+		}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+			sleep(1000)
+			nClick(474,361,4)
+		}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+			sleep(800)
+			nClick(172,146,3)
+			sleep(700)
+			nClick(219,266,8)
+			sleep(300)
+		}else{
+			nClick(57, 69, 4)
+		}
+		sleep(1300)
+	}
+	return
 }
