@@ -26,7 +26,6 @@ main:
 gerji:=1
 Loop   ;메인 루프
 {
-LV_Insert(1,,"대기중입니다." gerji)
 ;메인화면에서 전투화면으로
 err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
 if(err=0) {
@@ -48,8 +47,34 @@ loop{
 		break
 	}else if(nSearch(335, 341, 460, 405, 80, "full.png")=1){
 		sleep(1000)
-		MsgBox Full!!
-		break
+		nClick(406,378,6)
+		sleep(700)
+		nClick(147,109,5)
+		sleep(800)
+		nClick(52,68,6)
+		;메인화면에서 대기
+		loop{
+			if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+				nClick(285,263,30)
+			}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+				sleep(1000)
+				nClick(474,361,4)
+			}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1 or nSearch(107,60, 209, 123, 80, "friend2.png")=1){
+				sleep(400)
+				nClick(148,92,3)
+				sleep2(1300)
+				nClick(46,58,4)
+			}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+				sleep(800)
+				nClick(172,146,3)
+				sleep(700)
+				nClick(219,266,8)
+				sleep(300)
+			}
+			LV_Delete()
+			LV_Insert(1,,"캐릭터창이 가득찼습니다.")
+			sleep(5000)
+		}
 	}
 	sleep(1800)
 	if(A_Index>10){
@@ -241,6 +266,9 @@ loop{
 }
 
 changecharacter(FirstDealer,SecondDealer)
+
+LV_Delete()
+LV_Insert(1,,"대기중입니다." gerji)
 	
 gerji := gerji+1
 

@@ -19,14 +19,12 @@ Loop, read,  %A_ScriptDir%\432setting.txt
 	}
 }
 
-changecharacter(FirstDealer,SecondDealer)
-
 main:
 
 gerji:=0
 Loop   ;메인 루프
 {
-LV_Insert(1,,"대기중입니다." gerji)
+
 ;메인화면에서 전투화면으로
 err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
 if(err=0) {
@@ -54,9 +52,36 @@ loop{
 		break
 	}else if(nSearch(335, 341, 460, 405, 80, "full.png")=1){
 		sleep(1000)
-		
-		MsgBox Full!!
-		break
+		nClick(406,378,6)
+		sleep(700)
+		nClick(147,109,5)
+		sleep(800)
+		nClick(52,68,6)
+		;메인화면에서 대기
+		loop{
+			if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+				nClick(285,263,30)
+			}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+				sleep(1000)
+				nClick(474,361,4)
+			}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1 or nSearch(107,60, 209, 123, 80, "friend2.png")=1){
+				sleep(400)
+				nClick(148,92,3)
+				sleep2(1300)
+				nClick(46,58,4)
+			}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+				sleep(800)
+				nClick(172,146,3)
+				sleep(700)
+				nClick(219,266,8)
+				sleep(300)
+			}else{
+				nClick(300, 297, 15)
+			}
+			LV_Delete()
+			LV_Insert(1,,"캐릭터창이 가득찼습니다.")
+			sleep(5000)
+		}
 	}
 	sleep(1800)
 	if(A_Index>10){
@@ -189,6 +214,7 @@ battleend_to_main()
 nClick(736, 479, 6)
 sleep(7000)
 battlecount := 0
+
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 		sleep(2000)
@@ -205,6 +231,12 @@ loop{
 		nClick(148,92,3)
 		sleep2(1300)
 		nClick(46,58,4)
+	}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+		sleep(800)
+		nClick(172,146,3)
+		sleep(700)
+		nClick(219,266,8)
+		sleep(300)
 	}else{
 		nClick(736, 479, 6)
 	}
@@ -215,79 +247,10 @@ loop{
 	battlecount := battlecount+1
 }
 
-;메인에서 편성으로
-err := SearchAndClick(727, 344, 6, 519, 330, 640, 409, 80, "main.png", 17, 38, 86, 93, "return2.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(400)
+changecharacter(FirstDealer,SecondDealer)
 
-;1제대 케릭터 선택
-err := SearchAndClick(149, 283, 5, 17, 38, 86, 93, 80, "return2.png", 12, 42, 82, 86, "cancel.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(600)
-
-;교체 캐릭터 선택
-if(nSearch(selectposx(FirstDealer)-80, selectposy(FirstDealer), selectposx(FirstDealer), selectposy(FirstDealer)+120, 80, "leader1.png",3)=1 or nSearch(selectposx(FirstDealer)-80, selectposy(FirstDealer), selectposx(FirstDealer), selectposy(FirstDealer)+120, 80, "leader1_2.png",3)=1){
-	x:=selectposx(SecondDealer)
-	y:=selectposy(SecondDealer)
-	x2:=selectposx(FirstDealer)
-	y2:=selectposy(FirstDealer)
-}else{
-	x2:=selectposx(SecondDealer)
-	y2:=selectposy(SecondDealer)
-	x:=selectposx(FirstDealer)
-	y:=selectposy(FirstDealer)
-
-}
-err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(400)
-
-;편성 제대 1->2
-err := SearchAndClick(35, 181, 3, 17, 38, 86, 93, 80, "return2.png", 239, 220, 284, 267, "selectdoll.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(400)
-
-;캐릭선택창으로
-err := SearchAndClick(266, 262, 6, 239, 220, 284, 267, 80, "selectdoll.png", 12, 42, 82, 86, "cancel.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(400)
-
-;교체 기사 캐릭터 선택
-err := SearchAndClick(x2, y2, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(1000)
-
-;메인화면으로
-nClick(57, 69, 8)
-sleep(3000)
-loop{
-	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-		sleep(2300)
-		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-			break
-		}
-	}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
-		nClick(285,263,30)
-	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
-		sleep(1000)
-		nClick(474,361,4)
-	}else{
-		nClick(57, 69, 4)
-	}
-	sleep(1800)
-}
+LV_Delete()
+LV_Insert(1,,"대기중입니다." gerji)
 	
 gerji := gerji+1
 
