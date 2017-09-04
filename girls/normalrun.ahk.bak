@@ -131,6 +131,20 @@ sleep(1400)
 ;작전시작
 nClick(712,472,8)
 sleep2(3300)
+;지휘부클릭
+nClick(135,279,3)
+sleep2(1200)
+err := SearchAndClick(137, 277, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
+sleep2(1600)
+;보급클릭
+err := SearchAndClick(743, 390, 4, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
+sleep(1100)
 
 ;2제대클릭
 err := SearchAndClick(680, 355, 3, 94, 42, 155, 83, 80, "field.png", 530, 327, 608, 374, "2pclicked.png")
