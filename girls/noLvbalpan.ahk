@@ -18,7 +18,7 @@ err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 8
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1000)
+sleep2(700)
 ;전투->4-6드레그
 
 count :=1
@@ -27,6 +27,10 @@ loop{
 	Random,numx2,1,5
 	Random,numy1,1,3
 	Random,numy2,1,3
+	nDrag(400+40*numx1,430-10*numy1,400+40*numx2,218+10*numy2,10)
+	if(count>1){
+		sleep(1000)
+	}
 	if(nSearch(340, 387, 385, 426, 80, "4_6face.png")=1) {
 		break
 	}
@@ -34,8 +38,6 @@ loop{
 		MsgBox ERROR!!
 	}
 	count++
-	nDrag(400+40*numx1,430-10*numy1,400+40*numx2,218+10*numy2,10)
-	sleep(900)
 }
 
 
@@ -51,19 +53,19 @@ err := SearchAndClick(471, 417, 4, 419, 392, 511, 431, 80, "normal.png", 94, 42,
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(800)
+sleep(700)
 ;작전배치->1제대배치
 err := SearchAndClick(662, 361, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(800)
+sleep2(500)
 ;배치창->1제대 배치완료
 err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(800)
+sleep2(400)
 
 ;맨위로 드레그
 count :=1
@@ -72,16 +74,17 @@ loop{
 	Random,numx2,1,5
 	Random,numy1,1,5
 	Random,numy2,1,5
-	
-	if(nSearch(463, 50, 521, 112, 80, "fieldtop2.png")=1) {
+	nDrag(200+50*numx1,100+18*numy1,215+50*numx2,355+18*numy2,10)	
+	if(count>1){
+		sleep2(1100)
+	}
+	if(count>1 and nSearch(463, 50, 521, 112, 80, "fieldtop2.png")=1) {
 		break
 	}
 	if(count>5){
 		MsgBox ERROR!!
 	}
-	nDrag(200+50*numx1,100+18*numy1,215+50*numx2,355+18*numy2,10)
 	count++
-	sleep2(900)
 }
 
 
@@ -90,27 +93,27 @@ err := SearchAndClick(692, 132, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 7
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1000)
+sleep2(500)
 
 ;배치창->2제대 배치완료
 err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(1600)
+sleep2(500)
 ;작전시작
 err := SearchAndClick(712,472,8, 94, 42, 155, 83, 80, "field.png", 713, 452, 781, 499, "turnend.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(3000)
+sleep2(3300)
 
 ;헬리포트클릭
 err := SearchAndClick(694, 132, 3, 94, 42, 155, 83, 80, "field.png", 609, 106, 658, 141, "balpclicked.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(400)
+sleep2(600)
 ;1발판 이동
 nClick(681,237,3)
 sleep(700)
@@ -134,7 +137,7 @@ if(result=0){
 		MsgBox ERROR!!
 	}
 	result:=questionpad()
-	sleep2(400)
+	sleep2(500)
 }
 ;4좌발판
 if(result=0){
@@ -142,7 +145,7 @@ if(result=0){
 	nClick(537,388,3)
 	sleep(700)
 	result:=questionpad()
-	sleep2(400)
+	sleep2(500)
 }
 ;작전중지
 battleend()
@@ -171,11 +174,12 @@ loop{
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
 		sleep(1000)
 		nClick(474,361,4)
-	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1){
-		sleep(400)
-		nClick(148,92,3)
-		sleep2(1300)
-		nClick(46,58,4)
+	}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+		sleep(800)
+		nClick(172,146,3)
+		sleep(700)
+		nClick(219,266,8)
+		sleep(300)
 	}else{
 		nClick(470,354,4)
 	}
@@ -250,14 +254,14 @@ nDrag(x1,y1,x2,y2,range)
 
 sleep(delay:=1000){
 	Random,ran,1.1,2.2
-	multiple:=1.1
+	multiple:=0.9
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
 	Random,ran,1.1,1.6
-	multiple:=1.2
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
@@ -380,11 +384,12 @@ questionpad(){
 					count:=1
 					loop{
 						if(nSearch(388,30, 423, 61, 80, "ingamestop.png")=1){
+							sleep(300)
 							err := SearchAndClick(400, 45, 2, 388,30, 423, 61, 80, "ingamestop.png", 388,30, 423, 61, "ingameplay.png")
 							if(err=0) {
 								MsgBox ERROR!!
 							}
-							sleep(500)
+							sleep(400)
 							err := SearchAndClick(259,55,3, 388,30, 423, 61, 80, "ingameplay.png", 9,114, 63, 150, "handgun.png")
 							if(err=0) {
 								MsgBox ERROR!!
@@ -428,7 +433,7 @@ battleend(){
 	if(err=0) {
 		MsgBox ERROR!!
 	}
-	sleep2(400)
+	sleep2(500)
 	nClick(494,354,4)
 	return
 }
