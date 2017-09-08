@@ -1,4 +1,5 @@
 #NoEnv
+#SingleInstance Ignore
 SendMode Input
 DetectHiddenWindows On
 DetectHiddenText, On
@@ -70,8 +71,6 @@ loop{
 				sleep(700)
 				nClick(219,266,8)
 				sleep(300)
-			}else{
-				nClick(300, 297, 15)
 			}
 			LV_Delete()
 			LV_Insert(1,,"캐릭터창이 가득찼습니다.")
@@ -202,6 +201,8 @@ sleep(900)
 
 ;제대이동 
 nClick(329,194,3)
+sleep(1800)
+nClick(329,194,4)
 battleend_to_main()
 
 ;턴종료
@@ -330,15 +331,15 @@ nDrag(x1,y1,x2,y2,range)
 }
 
 sleep(delay:=1000){
-	Random,ran,0.8,3.2
-	multiple:=0.9
+	Random,ran,1.1,3.2
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
-	Random,ran,0.9,1.6
-	multiple:=0.9
+	Random,ran,1.3,1.6
+	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
@@ -455,7 +456,7 @@ battleend_to_main(){
 			nClick(360,264,30)
 		}
 		sleep(900)
-		if(A_Index>50){
+		if(A_Index>90){
 			MsgBox ERROR!!
 		}
 	}
