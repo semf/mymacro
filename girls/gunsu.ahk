@@ -1,0 +1,378 @@
+#NoEnv
+SendMode Input
+DetectHiddenWindows On
+DetectHiddenText, On
+CoordMode, Pixel, Screen
+SetWorkingDir %A_ScriptDir%
+
+Gui, Add, ListView, r10 , log
+gui, show,,Macro
+
+
+main:
+
+
+loop{
+	if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+		nClick(285,263,30)
+	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+		sleep(1000)
+		nClick(474,361,4)
+	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1 or nSearch(107,60, 209, 123, 80, "friend2.png")=1){
+		sleep(400)
+		nClick(148,92,3)
+		sleep2(1300)
+		nClick(46,58,4)
+	}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+		sleep(800)
+		nClick(172,146,3)
+		sleep(700)
+		nClick(219,266,8)
+		sleep(300)
+	}
+	LV_Delete()
+	LV_Insert(1,,"군수 대기중")
+	sleep(1000)
+}
+
+
+return
+
+^!z::ExitApp
+^!x::Pause
+MButton::pause
+
+/*
+search func
+*/
+
+
+
+
+nClick(x, y,range)
+{
+	Random,rX,-5*range,5*range
+	Random,rY,-3*range,3*range
+	x:=x+rX
+	y:=y+rY
+	IParam := x|y<<16 
+	WinGet, ActiveID, ID, dstn
+	PostMessage, 0x201, 1, %IParam%, , ahk_id %ActiveID%
+	sleep2(200)
+	PostMessage, 0x202, 0, %IParam%, , ahk_id %ActiveID%
+	sleep,50
+}
+
+nDrag(x1,y1,x2,y2,range)
+{
+	Random,rX,-5*range,5*range
+	Random,rY,-3*range,3*range
+	x1:=x1+rX
+	y1:=y1+rY
+	Random,rX,-5*range,5*range
+	Random,rY,-3*range,3*range
+	x2:=x2+rX
+	y2:=y2+rY
+	Random,num,15,22
+	Random,num2,28,34
+	IParam := x1|y1<<16
+	WinGet, ActiveID, ID, dstn
+	PostMessage, 0x201, 1, %IParam%, , ahk_id %ActiveID%
+	sleep(50)
+	gapx:=(x2-x1)/num2
+	gapy:=(y2-y1)/num2
+	loop,31
+	{
+		sleep(num/1.4)
+		y1:=y1+gapy
+		x1:=x1+gapx
+		IParam := Ceil(x1)|Ceil(y1)<<16
+		PostMessage, 0x200, 1, %IParam%, , ahk_id %ActiveID%
+	}
+	PostMessage, 0x202, 0, %IParam%, , ahk_id %ActiveID%
+	sleep,200
+}
+
+sleep(delay:=1000){
+	Random,ran,0.9,3.2
+	multiple:=1.0
+	sleep, delay*ran*multiple
+	return
+}
+
+sleep2(delay:=1000){
+	Random,ran,0.9,1.6
+	multiple:=1.0
+	sleep, delay*ran*multiple
+	return
+}
+
+ransleep(delay){
+	Random,ran,1,30
+	if(ran=1){
+		LV_Insert(1,,"120~240초 대기중")
+		sleep(delay*60)
+	}else if(ran>1 and ran<25){
+		sleep(delay)
+	}else {
+		LV_Insert(1,,"약30초 대기중")
+		sleep(delay*11)
+	}
+}
+
+nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
+{
+	if(x2=0 and y2=0){
+		x2:=x1+70
+		y2:=y1+70
+	}
+	loop, %count%{
+		ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
+		if(ErrorLevel=2){
+			LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+		}else if(Errorlevel=1){
+			LV_Insert(1,,"현재 화면에" img "이(가) 없습니다.")
+		}else{
+			LV_Insert(1,,img "을(를) 찾았습니다.")
+			return 1
+		}
+		if(count>1){
+			sleep,100
+		}
+	}
+	return 0
+}
+
+SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, y21:=0, x22:=0, y22:=0, img2:=" ")
+{
+	stage:=1
+	count:=1
+	loop{
+		if(Mod(stage,2)=1){
+			ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img "가 없습니다. ")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img "을(를) 찾았습니다.")
+				count := 1
+				nClick(xClick, yClick, range)
+				stage:=stage+1
+			}
+		}else if(Mod(stage,2)=0){
+			ImageSearch, , ,x21,y21,x22,y22, *TransBlack *%dp% %A_ScriptDir%\image\%img2%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img2 "을(를) 찾았습니다. click 성공")
+				return 1
+			}
+		}
+		if(stage>10){
+			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
+			return 0
+		}
+		sleep2(400)
+	}
+}
+
+SearchAndClickAndSplit(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, y21:=0, x22:=0, y22:=0, img2:=" ")
+{
+	stage:=1
+	count:=1
+	loop{
+		if(Mod(stage,2)=1){
+			ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img "가 없습니다. ")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img "을(를) 찾았습니다.")
+				count := 1
+				nClick(xClick, yClick, range)
+				stage:=stage+1
+			}
+		}else if(Mod(stage,2)=0){
+			ImageSearch, , ,x21,y21,x22,y22, *TransBlack *%dp% %A_ScriptDir%\image\%img2%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img2 "을(를) 찾았습니다. click 성공")
+				return 1
+			}
+		}
+		if(stage>10){
+			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
+			return 0
+		}
+		sleep2(400)
+	}
+}
+
+battleend_to_main(){
+	battleend:=0
+	loop{
+		if(battleend=1 and nSearch(94, 42, 155, 83, 80, "field.png")=1){
+			sleep(600)
+			return
+		}else if(battleend=0 and nSearch(598, 320, 673, 370, 60, "srank.png")=1){
+			Random,ran,1,40
+			if(ran=36){
+				LV_Insert(1,,"전투 끝 1분대기")
+				sleep(40000)
+			}else if(ran>1 and ran<35){
+				LV_Insert(1,,"전투끝 1초대기")
+				sleep(1000)
+			}else{
+				LV_Insert(1,,"전투 끝 10초 대기")
+				sleep2(9000)
+			}
+			battleend:=1
+		}
+		if(battleend=1){
+			nClick(360,264,30)
+		}
+		sleep(900)
+		if(A_Index>50){
+			MsgBox ERROR!!
+		}
+	}
+}
+
+selectposx(pos){
+	return mod(pos,6)*112+56
+}
+
+selectposy(pos){
+	if(pos>0 and pos<12){
+		return Floor(pos/6)*200+187
+	}else if(pos>11 and pos<18){
+		return 498
+	}else{
+		MsgBox setting error
+	}
+}
+
+changecharacter(First,Second){
+	fx:=selectposx(First)
+	fy:=selectposy(First)
+	sx:=selectposx(Second)
+	sy:=selectposy(Second)
+	;메인에서 편성으로
+	err := SearchAndClick(727, 344, 6, 519, 330, 640, 409, 80, "main.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;1제대 케릭터 선택
+	err := SearchAndClick(149, 283, 5, 17, 38, 86, 93, 80, "return2.png", 12, 42, 82, 86, "cancel.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(600)
+
+	;교체 캐릭터 선택
+	if(nSearch(fx-80, fy, fx, fy+120, 80, "leader1.png",3)=1 or nSearch(fx-80, fy, fx, fy+120, 80, "leader1_2.png",3)=1){
+		x:=sx
+		y:=sy
+		x2:=fx
+		y2:=fy
+	}else{
+		x2:=sx
+		y2:=sy
+		x:=fx
+		y:=fy
+	}
+	err := SearchAndClick(x, y, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;편성 제대 1->2
+	err := SearchAndClick(35, 181, 3, 17, 38, 86, 93, 80, "return2.png", 239, 220, 284, 267, "selectdoll.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;캐릭선택창으로
+	err := SearchAndClick(266, 262, 6, 239, 220, 284, 267, 80, "selectdoll.png", 12, 42, 82, 86, "cancel.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(400)
+
+	;교체 기사 캐릭터 선택
+	err := SearchAndClick(x2, y2, 3, 12, 42, 82, 86, 80, "cancel.png", 17, 38, 86, 93, "return2.png")
+	if(err=0) {
+		MsgBox ERROR!!
+	}
+	sleep(1000)
+
+	;메인화면으로
+	nClick(57, 69, 8)
+	sleep(3000)
+	loop{
+		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
+			sleep(2300)
+			if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
+				break
+			}
+		}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+			nClick(285,263,30)
+		}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+			sleep(1000)
+			nClick(474,361,4)
+		}else if(nSearch(247, 132,318,178, 80, "share.png")=1){
+			sleep(800)
+			nClick(172,146,3)
+			sleep(700)
+			nClick(219,266,8)
+			sleep(300)
+		}else{
+			nClick(57, 69, 4)
+		}
+		sleep(1300)
+	}
+	return
+}
