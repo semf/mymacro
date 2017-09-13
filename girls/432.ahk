@@ -490,7 +490,7 @@ battleend_to_main(){
 			nClick(360,264,30)
 		}
 		sleep(900)
-		if(A_Index>50){
+		if(A_Index>300){
 			MsgBox ERROR!!
 		}
 	}

@@ -1,5 +1,4 @@
 #NoEnv
-#SingleInstance Ignore
 SendMode Input
 DetectHiddenWindows On
 DetectHiddenText, On

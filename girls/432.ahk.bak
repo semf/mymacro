@@ -7,8 +7,7 @@ SetWorkingDir %A_ScriptDir%
 
 Gui, Add, ListView, r10 , log
 gui, show,,Macro
-
-Loop, read,  %A_ScriptDir%\02setting.txt
+Loop, read,  %A_ScriptDir%\432setting.txt
 {
 	StringSplit, arr, A_LoopReadLine, %A_Space%
 	if(A_Index=1){
@@ -21,19 +20,25 @@ Loop, read,  %A_ScriptDir%\02setting.txt
 }
 
 main:
-	
 
-gerji:=1
+gerji:=0
 Loop   ;메인 루프
 {
+
 ;메인화면에서 전투화면으로
 err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
 sleep2(1000)
-;02선택
-err := SearchAndClick(502, 279, 7, 12, 42, 82, 86, 80, "return.png", 419, 392, 511, 431, "normal.png")
+;전투->긴급선택
+err := SearchAndClick(692, 149, 2, 12, 42, 82, 86, 80, "return.png", 565, 87, 701, 131, "emergency.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
+sleep(1000)
+;긴급->4-3e
+err := SearchAndClick(567, 358, 7, 565, 87, 701, 131, 80, "emergency.png", 419, 392, 511, 431, "normal.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
@@ -81,26 +86,25 @@ loop{
 		MsgBox ERROR!!
 	}
 }
-
 sleep(1000)
 ;작전배치->1제대배치
-err := SearchAndClick(169, 274, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
+err := SearchAndClick(137, 277, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(600)
+sleep2(1000)
 ;배치창->1제대 배치완료
 err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(400)
+sleep2(1000)
 ;작전배치->2제대배치
-err := SearchAndClick(411, 277, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
+err := SearchAndClick(680, 355, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(400)
+sleep2(1000)
 
 ;쾌속 수복
 if(Mod(gerji,cure)=cure-1){
@@ -115,7 +119,7 @@ if(Mod(gerji,cure)=cure-1){
 	if(err=0) {
 		MsgBox ERROR!!
 	}
-	sleep(400)
+	sleep(1000)
 }
 
 ;배치창->2제대 배치완료
@@ -123,44 +127,44 @@ err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(400)
+sleep(1400)
 ;작전시작
 nClick(712,472,8)
 sleep2(3300)
-;텔레포트클릭
-nClick(165, 272,3)
-sleep2(800)
-err := SearchAndClick(165, 272, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
+;지휘부클릭
+nClick(135,279,3)
+sleep2(1200)
+err := SearchAndClick(137, 277, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(800)
+sleep2(1600)
 ;보급클릭
 err := SearchAndClick(743, 390, 4, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(700)
+sleep(1100)
 
 ;2제대클릭
-err := SearchAndClick(411, 278, 5, 94, 42, 155, 83, 80, "field.png", 567, 211, 659, 302, "02clicked.png")
+err := SearchAndClick(680, 355, 3, 94, 42, 155, 83, 80, "field.png", 530, 327, 608, 374, "2pclicked.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
 sleep2(400)
 
 ;제대 이동 전투끝나기 기다림
-nClick(310,213,3)
+nClick(668,256,3)
 battleend_to_main()
 
 ;2제대클릭2
-err := SearchAndClick(313, 215, 3, 94, 42, 155, 83, 80, "field.png", 566, 175, 655, 233, "02clicked2.png")
+err := SearchAndClick(670, 275, 3, 94, 42, 155, 83, 80, "field.png", 583, 213, 659, 278, "2pclicked2.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
 sleep2(400)
 ;제대 이동 전투끝나기 기다림
-nClick(339,90,2)
+nClick(706,177,2)
 battleend_to_main()
 
 ;맨위로 드레그
@@ -171,11 +175,9 @@ loop{
 	Random,numy1,1,5
 	Random,numy2,1,5
 	
-	nDrag(430+30*numx1,120+8*numy1,430+30*numx2,370+10*numy2,6)
-	if(count>1){
-		sleep(1000)
-	}
-	if(nSearch(430, 53, 513, 126, 80, "02fieldtop.png")=1 and count>1) {
+	nDrag(200+50*numx1,120+18*numy1,215+50*numx2,355+18*numy2,10)
+	sleep(1000)
+	if(nSearch(434, 44, 541, 140, 80, "fieldtop.png")=1 and count>1) {
 		break
 	}
 	if(count>5){
@@ -184,57 +186,33 @@ loop{
 	count++
 }
 
+
+
 ;2제대클릭3
-err := SearchAndClick(334, 388, 4, 94, 42, 155, 83, 80, "field.png", 462, 345, 544, 408, "02clicked3.png")
+err := SearchAndClick(702, 416, 4, 94, 42, 155, 83, 80, "field.png", 561, 380, 650, 423, "2pclicked3.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
 sleep(300)
-
-;2제대빈칸으로 이동
-err := SearchAndClick(423, 257, 4, 462, 345, 544, 408, 80, "02clicked3.png", 132, 215, 205, 277, "02clicked4.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(900)
-
-;제대이동 
-nClick(329,194,3)
-sleep(1800)
-nClick(329,194,4)
+;제대 이동 전투끝나기 기다림
+nClick(648,314,3)
 battleend_to_main()
 
-;턴종료
-nClick(739,477,4)
-sleep2(9000)
-
-;2제대클릭5
-err := SearchAndClick(326, 198, 3, 94, 42, 155, 83, 80, "field.png", 130, 155, 215, 215, "02clicked5.png")
+;2제대클릭4
+err := SearchAndClick(647, 316, 3, 94, 42, 155, 83, 80, "field.png", 544, 269, 621, 332, "2pclicked4.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
 sleep(300)
-
 ;제대 이동 전투끝나기 기다림
-nClick(507,190,4)
-battleend_to_main()
-
-
-;2제대클릭6
-err := SearchAndClick(508, 194, 3, 94, 42, 155, 83, 80, "field.png", 139, 150, 212, 215, "02clicked6.png")
-if(err=0) {
-	MsgBox ERROR!!
-}
-sleep(300)
-
-;제대 이동 전투끝나기 기다림
-nClick(626,218,5)
+nClick(658,176,4)
 battleend_to_main()
 
 ;턴종료
 nClick(736, 479, 6)
 sleep(7000)
 battlecount := 0
+
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 		sleep(2000)
@@ -283,6 +261,11 @@ return
 ^!x::Pause
 MButton::pause
 
+/*
+search func
+*/
+
+
 
 
 nClick(x, y,range)
@@ -330,14 +313,14 @@ nDrag(x1,y1,x2,y2,range)
 }
 
 sleep(delay:=1000){
-	Random,ran,1.1,3.2
+	Random,ran,0.9,3.2
 	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
 }
 
 sleep2(delay:=1000){
-	Random,ran,1.3,1.6
+	Random,ran,0.9,1.6
 	multiple:=1.0
 	sleep, delay*ran*multiple
 	return
@@ -389,7 +372,7 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>3){
+				if(count>5){
 					LV_Insert(1,,img "가 없습니다. ")
 					count:=1
 					stage:=stage+1
@@ -409,7 +392,7 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>3){
+				if(count>5){
 					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
 					count:=1
 					stage:=stage+1
@@ -427,7 +410,59 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
 			return 0
 		}
-		sleep2(200)
+		sleep2(400)
+	}
+}
+
+SearchAndClickAndSplit(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, y21:=0, x22:=0, y22:=0, img2:=" ")
+{
+	stage:=1
+	count:=1
+	loop{
+		if(Mod(stage,2)=1){
+			ImageSearch, , ,x1,y1,x2,y2, *TransBlack *%dp% %A_ScriptDir%\image\%img%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img "가 없습니다. ")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img "을(를) 찾았습니다.")
+				count := 1
+				nClick(xClick, yClick, range)
+				stage:=stage+1
+			}
+		}else if(Mod(stage,2)=0){
+			ImageSearch, , ,x21,y21,x22,y22, *TransBlack *%dp% %A_ScriptDir%\image\%img2%
+			if(ErrorLevel=2){
+				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
+			}else if(Errorlevel=1){
+				if(count>5){
+					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
+					count:=1
+					stage:=stage+1
+				}else{
+					LV_Insert(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
+					sleep(700)
+					count := count+1
+				}
+			}else{
+				LV_Insert(1,,img2 "을(를) 찾았습니다. click 성공")
+				return 1
+			}
+		}
+		if(stage>10){
+			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
+			return 0
+		}
+		sleep2(400)
 	}
 }
 
@@ -444,7 +479,7 @@ battleend_to_main(){
 				sleep(40000)
 			}else if(ran>1 and ran<35){
 				LV_Insert(1,,"전투끝 1초대기")
-				sleep(800)
+				sleep(1000)
 			}else{
 				LV_Insert(1,,"전투 끝 10초 대기")
 				sleep2(9000)
@@ -455,7 +490,7 @@ battleend_to_main(){
 			nClick(360,264,30)
 		}
 		sleep(900)
-		if(A_Index>300){
+		if(A_Index>50){
 			MsgBox ERROR!!
 		}
 	}
