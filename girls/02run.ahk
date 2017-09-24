@@ -21,24 +21,36 @@ Loop, read,  %A_ScriptDir%\02setting.txt
 }
 
 main:
-	
 
-gerji:=1
+cureTag:=0
 Loop   ;메인 루프
 {
 ;메인화면에서 전투화면으로
 err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
 if(err=0) {
-	MsgBox ERROR!!
+	loop,3 {
+		nClick(474,361,4)
+		sleep(500)
+		err := SearchAndClick(582, 369, 3, 519, 330, 640, 409, 80, "main.png", 12, 42, 82, 86, "return.png")
+		if(err!=0){
+			break
+		}
+	}
 }
 sleep2(1000)
 ;02선택
 err := SearchAndClick(502, 279, 7, 12, 42, 82, 86, 80, "return.png", 419, 392, 511, 431, "normal.png")
 if(err=0) {
-	MsgBox ERROR!!
+	loop,3 {
+		nClick(474,361,4)
+		sleep(500)
+		err := SearchAndClick(502, 279, 7, 12, 42, 82, 86, 80, "return.png", 419, 392, 511, 431, "normal.png")
+		if(err!=0){
+			break
+		}
+	}
 }
 sleep(500)
-
 ;작전배치->전장설명  or 캐릭터 꽉찬경우
 loop{
 	if(nSearch(419, 392, 511, 431, 80, "normal.png")=1){
@@ -75,6 +87,11 @@ loop{
 			LV_Insert(1,,"캐릭터창이 가득찼습니다.")
 			sleep(5000)
 		}
+	}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
+		nClick(285,263,30)
+	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
+		sleep(1000)
+		nClick(474,361,4)
 	}
 	sleep(1800)
 	if(A_Index>10){
@@ -103,7 +120,7 @@ if(err=0) {
 sleep2(400)
 
 ;쾌속 수복
-if(Mod(gerji,cure)=cure-1){
+if(cureTag=cure){
 	;수복창
 	err := SearchAndClick(391,271, 5, 679, 429, 783, 468, 80, "arrange.png", 526, 345, 631, 387, "healing.png")
 	if(err=0) {
@@ -115,6 +132,7 @@ if(Mod(gerji,cure)=cure-1){
 	if(err=0) {
 		MsgBox ERROR!!
 	}
+	cureTag:=0
 	sleep(400)
 }
 
@@ -231,9 +249,14 @@ sleep(300)
 nClick(626,218,5)
 battleend_to_main()
 
+
+if(nSearch(561,134,626,205,80, "02warning.png",5)=1){
+	cureTag:=cure-1
+}
+
 ;턴종료
 nClick(736, 479, 6)
-sleep(7000)
+sleep(4000)
 battlecount := 0
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
@@ -258,9 +281,13 @@ loop{
 		nClick(219,266,8)
 		sleep(300)
 	}else{
-		nClick(736, 479, 6)
+		if(A_Index<3){
+			nClick(736, 479, 6)
+		}else{
+			nClick(246,234,10)
+		}
 	}
-	sleep(1300)
+	sleep(1000)
 	if(battelcount>20){
 		MsgBox ERROR!!
 	}
@@ -270,9 +297,9 @@ loop{
 changecharacter(FirstDealer,SecondDealer)
 
 LV_Delete()
-LV_Insert(1,,"대기중입니다." gerji)
+LV_Insert(1,,A_Index "회 완료 하였습니다")
 	
-gerji := gerji+1
+cureTag:=cureTag+1
 
 
 }
@@ -450,6 +477,8 @@ battleend_to_main(){
 				sleep2(9000)
 			}
 			battleend:=1
+		}else if(battleend=0 and nSearch(388,30, 423, 61, 80, "ingameplay.png")=1){
+			nClick(400,36,3)
 		}
 		if(battleend=1){
 			nClick(360,264,30)
@@ -556,7 +585,7 @@ changecharacter(First,Second){
 		}else{
 			nClick(57, 69, 4)
 		}
-		sleep(1300)
+		sleep(1600)
 	}
 	return
 }
