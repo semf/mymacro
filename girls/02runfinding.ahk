@@ -165,7 +165,17 @@ err := SearchAndClick(411, 278, 5, 94, 42, 155, 83, 80, "field.png", 567, 211, 6
 if(err=0) {
 	MsgBox ERROR!!
 }
+;요정 스킬 사용
 sleep2(400)
+nClick(759,291,3)
+sleep2(300)
+nClick(411,278,5)
+sleep2(1200)
+err := SearchAndClick(411, 278, 5, 94, 42, 155, 83, 80, "field.png", 567, 211, 659, 302, "02clicked.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
+
 
 ;제대 이동 전투끝나기 기다림
 nClick(310,213,3)
@@ -244,6 +254,16 @@ if(err=0) {
 	MsgBox ERROR!!
 }
 sleep(300)
+;요정 스킬 사용
+sleep2(400)
+nClick(759,291,3)
+sleep2(300)
+nClick(508,194,3)
+sleep2(1200)
+err := SearchAndClick(508,194,4, 94, 42, 155, 83, 80, "field.png", 139, 150, 212, 215, "02clicked6.png")
+if(err=0) {
+	MsgBox ERROR!!
+}
 
 ;제대 이동 전투끝나기 기다림
 nClick(626,218,5)
@@ -298,6 +318,9 @@ changecharacter(FirstDealer,SecondDealer)
 
 LV_Delete()
 LV_Insert(1,,A_Index "회 완료 하였습니다")
+if(A_Index=20){
+	MsgBox, 30회 끝!
+}
 	
 cureTag:=cureTag+1
 
