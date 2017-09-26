@@ -93,19 +93,19 @@ loop{
 		sleep(1000)
 		nClick(474,361,4)
 	}
-	sleep(1800)
+	sleep(1100)
 	if(A_Index>10){
 		MsgBox ERROR!!
 	}
 }
 
-sleep(1000)
+sleep(300)
 ;작전배치->1제대배치
 err := SearchAndClick(169, 274, 3, 94, 42, 155, 83, 80, "field.png", 679, 429, 783, 468, "arrange.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(600)
+sleep2(400)
 ;배치창->1제대 배치완료
 err := SearchAndClick(733, 451, 5, 679, 429, 783, 468, 80, "arrange.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
@@ -147,18 +147,18 @@ nClick(712,472,8)
 sleep2(3300)
 ;텔레포트클릭
 nClick(165, 272,3)
-sleep2(800)
+sleep2(600)
 err := SearchAndClick(165, 272, 3, 94, 42, 155, 83, 80, "field.png", 707, 371, 792, 415, "supply.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep2(800)
+sleep2(600)
 ;보급클릭
 err := SearchAndClick(743, 390, 4, 707, 371, 792, 415, 80, "supply.png", 94, 42, 155, 83, "field.png")
 if(err=0) {
 	MsgBox ERROR!!
 }
-sleep(700)
+sleep(600)
 
 ;2제대클릭
 err := SearchAndClick(411, 278, 5, 94, 42, 155, 83, 80, "field.png", 567, 211, 659, 302, "02clicked.png")
@@ -224,7 +224,7 @@ battleend_to_main()
 
 ;턴종료
 nClick(739,477,4)
-sleep2(9000)
+sleep2(8000)
 
 ;2제대클릭5
 err := SearchAndClick(326, 198, 3, 94, 42, 155, 83, 80, "field.png", 130, 155, 215, 215, "02clicked5.png")
@@ -256,18 +256,17 @@ if(nSearch(561,134,626,205,80, "02warning.png",5)=1){
 
 ;턴종료
 nClick(736, 479, 6)
-sleep(4000)
-battlecount := 0
+sleep(3500)
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
-		sleep(2000)
+		sleep(1400)
 		if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 			break
 		}
 	}else if(nSearch(764, 22, 810, 65, 80, "gunsuend.png")=1){
 		nClick(285,263,30)
 	}else if(nSearch(450, 336, 520, 383, 80, "gunsustart.png")=1){
-		sleep(1000)
+		sleep(500)
 		nClick(474,361,4)
 	}else if(nSearch(107,60, 209, 123, 80, "friend.png")=1 or nSearch(107,60, 209, 123, 80, "friend2.png")=1){
 		sleep(400)
@@ -288,10 +287,9 @@ loop{
 		}
 	}
 	sleep(1000)
-	if(battelcount>20){
+	if(A_Index>20){
 		MsgBox ERROR!!
 	}
-	battlecount := battlecount+1
 }
 
 changecharacter(FirstDealer,SecondDealer)
@@ -385,6 +383,8 @@ ransleep(delay){
 
 nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 {
+	x1:=x1-1920
+	x2:=x2-1920
 	if(x2=0 and y2=0){
 		x2:=x1+70
 		y2:=y1+70
@@ -408,6 +408,10 @@ nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 
 SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, y21:=0, x22:=0, y22:=0, img2:=" ")
 {
+	x1:=x1-1920
+	x2:=x2-1920
+	x21:=x21-1920
+	x22:=x22-1920
 	stage:=1
 	count:=1
 	loop{
@@ -416,13 +420,13 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>3){
+				if(count>4){
 					LV_Insert(1,,img "가 없습니다. ")
 					count:=1
 					stage:=stage+1
 				}else{
 					LV_Insert(1,,"현재 화면에" img "이(가) 없습니다. 대기중.." count)
-					sleep(700)
+					sleep(400)
 					count := count+1
 				}
 			}else{
@@ -436,13 +440,13 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 			if(ErrorLevel=2){
 				LV_Insert(1,,img2 "파일을 찾을 수 없습니다.")
 			}else if(Errorlevel=1){
-				if(count>3){
+				if(count>4){
 					LV_Insert(1,,img2 "가 없습니다. 재시도 합니다.")
 					count:=1
 					stage:=stage+1
 				}else{
 					LV_Insert(1,,"현재 화면에" img2 "이(가) 없습니다. 대기중.." count)
-					sleep(700)
+					sleep(400)
 					count := count+1
 				}
 			}else{
@@ -450,11 +454,11 @@ SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, 
 				return 1
 			}
 		}
-		if(stage>10){
+		if(stage>12){
 			LV_Insert(1,,"오류 이미지를 둘 다 찾을 수 없습니다")
 			return 0
 		}
-		sleep2(200)
+		sleep2(100)
 	}
 }
 
@@ -465,11 +469,11 @@ battleend_to_main(){
 			sleep(600)
 			return
 		}else if(battleend=0 and nSearch(598, 320, 673, 370, 60, "srank.png")=1){
-			Random,ran,1,40
+			Random,ran,1,60
 			if(ran=36){
 				LV_Insert(1,,"전투 끝 1분대기")
 				sleep(40000)
-			}else if(ran>1 and ran<35){
+			}else if(ran>1 and ran<54){
 				LV_Insert(1,,"전투끝 1초대기")
 				sleep(800)
 			}else{
@@ -584,6 +588,9 @@ changecharacter(First,Second){
 			sleep(300)
 		}else{
 			nClick(57, 69, 4)
+		}
+		if(A_Index>30){
+			MsgBox error!
 		}
 		sleep(1600)
 	}

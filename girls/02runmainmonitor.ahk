@@ -383,8 +383,6 @@ ransleep(delay){
 
 nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 {
-	x1:=x1-1920
-	x2:=x2-1920
 	if(x2=0 and y2=0){
 		x2:=x1+70
 		y2:=y1+70
