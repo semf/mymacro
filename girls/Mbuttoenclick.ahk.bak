@@ -5,9 +5,9 @@ DetectHiddenText, On
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 
-MouseClick, M, 532, 322 ,,,D
+MouseClick, M, 1386, 322 ,,,D
 sleep(200)
-MouseClick, M, 532, 322 ,,,U
+MouseClick, M, 1386, 322 ,,,U
 ExitApp
 
 

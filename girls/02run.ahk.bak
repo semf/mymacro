@@ -21,6 +21,8 @@ Loop, read,  %A_ScriptDir%\02setting.txt
 }
 
 main:
+global noxX,noxY
+WinGetPos, noxX, noxyY, Width, Height, dstn
 
 cureTag:=0
 Loop   ;메인 루프
@@ -383,8 +385,8 @@ ransleep(delay){
 
 nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 {
-	x1:=x1-1920
-	x2:=x2-1920
+	x1:=x1-noxX
+	x2:=x2-noxX
 	if(x2=0 and y2=0){
 		x2:=x1+70
 		y2:=y1+70
@@ -408,6 +410,10 @@ nSearch(x1,y1,x2:=0,y2:=0,dp:=80,img:=" ",count:=1)
 
 SearchAndClick(xClick, yClick, range, x1, y1, x2, y2, dp:=80, img:=" ", x21:=0, y21:=0, x22:=0, y22:=0, img2:=" ")
 {
+	x1:=x1-noxX
+	x2:=x2-noxX
+	x21:=x21-noxX
+	x22:=x22-noxX
 	stage:=1
 	count:=1
 	loop{

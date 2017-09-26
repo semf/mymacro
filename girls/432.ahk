@@ -211,8 +211,6 @@ battleend_to_main()
 ;ÅÏÁ¾·á
 nClick(736, 479, 6)
 sleep(7000)
-battlecount := 0
-
 loop{
 	if(nSearch(519, 330, 640, 409, 80, "main.png")=1){
 		sleep(2000)
@@ -239,10 +237,9 @@ loop{
 		nClick(736, 479, 6)
 	}
 	sleep(1300)
-	if(battelcount>20){
-		MsgBox ERROR!!
+	if(A_Index>30){
+		MsgBox Error!!
 	}
-	battlecount := battlecount+1
 }
 
 changecharacter(FirstDealer,SecondDealer)
@@ -592,6 +589,9 @@ changecharacter(First,Second){
 			nClick(57, 69, 4)
 		}
 		sleep(1300)
+		if(A_Index>30){
+			MsgBox ERROR!!
+		}
 	}
 	return
 }
